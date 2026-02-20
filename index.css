@@ -1,4 +1,4 @@
-/* Catppuccin Mocha - Chetalonso con Card Transparente */
+/* Catppuccin Mocha - Chetalonso */
 :root {
     --base: #1e1e2e;
     --mantel: #181825;
@@ -15,6 +15,12 @@
     box-sizing: border-box;
 }
 
+/* PC - Normal con scroll */
+html, body {
+    height: 100%;
+    /* En PC permitimos scroll normal */
+}
+
 body {
     color: var(--texto);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -23,7 +29,7 @@ body {
     align-items: center;
     justify-content: center;
     line-height: 1.5;
-    padding: 1rem;
+    padding: 2rem 1rem;
     
     /* Fondo de ciudad */
     background-image: url('asset/city-horizon.jpg');
@@ -42,7 +48,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(30, 30, 46, 0.6); /* Un poco más claro para que se vea más el fondo */
+    background-color: rgba(30, 30, 46, 0.6);
     z-index: 0;
 }
 
@@ -55,16 +61,17 @@ body::before {
 }
 
 .main-card {
-    background-color: rgba(24, 24, 37, 0.4); /* Más transparente: 0.4 */
+    background-color: rgba(24, 24, 37, 0.4);
     border-radius: 32px;
     padding: 2.5rem 2rem;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(203, 166, 247, 0.3); /* Borde morado más sutil */
+    border: 1px solid rgba(203, 166, 247, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
-    backdrop-filter: blur(12px); /* Más blur para efecto vidrio */
+    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    width: 100%;
 }
 
 /* Perfil */
@@ -119,7 +126,7 @@ body::before {
 }
 
 .link-card {
-    background-color: rgba(30, 30, 46, 0.5); /* Más transparente */
+    background-color: rgba(30, 30, 46, 0.5);
     border: 1px solid rgba(203, 166, 247, 0.2);
     border-radius: 14px;
     padding: 0.9rem 1.2rem;
@@ -138,7 +145,7 @@ body::before {
     border-color: var(--morado);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    background-color: rgba(49, 50, 68, 0.6); /* var(--surface) transparente */
+    background-color: rgba(49, 50, 68, 0.6);
     border: 1px solid rgba(203, 166, 247, 0.6);
 }
 
@@ -212,19 +219,60 @@ body::before {
     padding-top: 1.5rem;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+/* ===== MÓVIL - Card fijo sin movimiento ===== */
+@media (max-width: 768px) {
+    html, body {
+        overflow: hidden; /* SOLO en móvil quitamos scroll */
+        height: 100%;
+    }
+    
+    body {
+        padding: 0.5rem;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        max-height: 100vh;
+    }
+    
     .main-card {
-        padding: 1.8rem 1.2rem;
+        padding: 1.5rem 1.2rem;
+        max-height: 98vh;
+        border-radius: 28px;
+        overflow-y: auto; /* Scroll solo dentro del card si es necesario */
+    }
+    
+    /* Scrollbar personalizado para móvil */
+    .main-card::-webkit-scrollbar {
+        width: 3px;
+    }
+    
+    .main-card::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .main-card::-webkit-scrollbar-thumb {
+        background: var(--morado);
+        border-radius: 3px;
+    }
+    
+    /* Ajustes de tamaño para móvil */
+    .profile {
+        margin-bottom: 1.5rem;
     }
     
     .profile-image {
-        width: 90px;
-        height: 90px;
+        width: 85px;
+        height: 85px;
+        margin-bottom: 0.8rem;
     }
     
     .profile-name {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
     
     .profile-bio {
@@ -232,7 +280,8 @@ body::before {
     }
     
     .links {
-        max-width: 100%;
+        gap: 0.7rem;
+        margin-bottom: 1.5rem;
     }
     
     .link-card {
@@ -240,8 +289,55 @@ body::before {
     }
     
     .link-icon {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         width: 2rem;
+    }
+    
+    .link-text {
+        font-size: 0.95rem;
+    }
+    
+    .secondary-icons {
+        gap: 3rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .secondary-icon {
+        font-size: 1.4rem;
+        min-width: 60px;
+    }
+    
+    .footer {
+        padding-top: 1.2rem;
+    }
+}
+
+/* Móvil muy pequeño */
+@media (max-width: 480px) {
+    .main-card {
+        padding: 1.2rem 1rem;
+    }
+    
+    .profile-image {
+        width: 75px;
+        height: 75px;
+    }
+    
+    .profile-name {
+        font-size: 1.6rem;
+    }
+    
+    .profile-bio {
+        font-size: 0.85rem;
+    }
+    
+    .link-card {
+        padding: 0.7rem 0.9rem;
+    }
+    
+    .link-icon {
+        font-size: 1.3rem;
+        width: 1.8rem;
     }
     
     .link-text {
